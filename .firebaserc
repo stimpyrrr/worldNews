@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "world-news-2a49f": {
+      "hosting": {
+        "worldNews": [
+          "world-news-2a49f"
+        ]
+      }
+    }
+  }
+}
