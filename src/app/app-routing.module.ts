@@ -4,7 +4,6 @@ import { CategoryNewsComponent } from './components/category-news/category-news.
 import { FavouritesComponent } from './components/favourites/favourites.component';
 import { LatestNewsComponent } from './components/latest-news/latest-news.component';
 import { LoginComponent } from './components/login/login.component';
-import { LogoutComponent } from './components/logout/logout.component';
 import { RegisterComponent } from './components/register/register.component';
 
 
@@ -21,10 +20,6 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
-  },
-  {
-    path: 'logout',
-    component: LogoutComponent
   },
   {
     path: 'register',

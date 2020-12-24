@@ -11,12 +11,14 @@ import { CategoryNewsComponent } from './components/category-news/category-news.
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { FavouritesComponent } from './components/favourites/favourites.component';
-import { LogoutComponent } from './components/logout/logout.component';
 
 /* FIREBASE */
 import { AngularFireModule } from '@angular/fire';
 import {  AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
+
+/* FORMS */
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -27,14 +29,14 @@ import { environment } from 'src/environments/environment';
     CategoryNewsComponent,
     LoginComponent,
     RegisterComponent,
-    FavouritesComponent,
-    LogoutComponent
+    FavouritesComponent    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AngularFireAuthModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig)
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
