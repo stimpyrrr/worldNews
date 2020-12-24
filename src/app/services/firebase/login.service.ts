@@ -23,10 +23,12 @@ export class LoginService {
 
   async logout(){
     try {
-      const respoAuth = await this.angularFireAuth.auth.signOut();
+      const logoutResp = await this.angularFireAuth.auth.signOut();
       console.log('logout exitoso');
+      return logoutResp;
     } catch (error) {
-      console.error('logout error ->', error);    
+      console.error('logout error ->', error);
+      return error;    
     }
   }
 }
