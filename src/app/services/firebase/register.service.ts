@@ -1,4 +1,4 @@
-import { stringify } from '@angular/compiler/src/util';
+// import { stringify } from '@angular/compiler/src/util';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 
@@ -11,10 +11,10 @@ export class RegisterService {
     private angularFireAuth: AngularFireAuth
   ) { }
 
-  async registrar(email: string, pass: string){
+  async registerByUserEmail(email: string, pass: string){
     try {
       const respRegister = await this.angularFireAuth.auth.createUserWithEmailAndPassword(email, pass);
-      console.log('register ok -> ', respRegister);
+      return respRegister.user;
     } catch (error) {
       console.error('register error -> ', error);
     }

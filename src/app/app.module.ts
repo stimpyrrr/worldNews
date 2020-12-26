@@ -17,8 +17,13 @@ import { AngularFireModule } from '@angular/fire';
 import {  AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 
+/* FIREBASE */
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+
 /* FORMS */
 import { ReactiveFormsModule } from '@angular/forms';
+import { HomeComponent } from './components/home/home.component';
+import { LoggedGuard } from './guards/logged.guard';
 
 @NgModule({
   declarations: [
@@ -29,16 +34,18 @@ import { ReactiveFormsModule } from '@angular/forms';
     CategoryNewsComponent,
     LoginComponent,
     RegisterComponent,
-    FavouritesComponent    
+    FavouritesComponent,
+    HomeComponent    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularFirestoreModule
   ],
-  providers: [],
+  providers: [LoggedGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

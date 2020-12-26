@@ -5,13 +5,19 @@ import { FavouritesComponent } from './components/favourites/favourites.componen
 import { LatestNewsComponent } from './components/latest-news/latest-news.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+// import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
+import { HomeComponent } from './components/home/home.component';
 
 
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'LatestNews'
+    redirectTo: 'home'
+  },
+  {
+    path: 'home',
+    component: HomeComponent
   },
   {
     path: 'LatestNews',
