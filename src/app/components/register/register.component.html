@@ -1,18 +1,50 @@
 <div class="container">
-    <form [formGroup]="registerForm" (ngSubmit)="register()">
+    <form [formGroup]="registerForm" (ngSubmit)="register()" novalidate>
         <div class="form-group">
-          <label for="exampleInputEmail1">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" formControlName="email" aria-describedby="emailHelp">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          <label for="validationEmail">Email address</label>
+          <input type="email" class="form-control" id="validationEmail" 
+          formControlName="email"
+          [ngClass] ="{'is-invalid': email.invalid && (email.dirty || email.touched)}"
+          aria-describedby="emailHelp" required>
+          <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+          <div *ngIf="email.invalid && (email.dirty || email.touched)" class="invalid-feedback">
+            <div *ngIf="email.errors.required">
+              Email es requerido
+            </div>
+            <div *ngIf="email.errors.email">
+              Formato incorrecto
+            </div>
+          </div>
         </div>
         <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1" formControlName="pass">
+          <label for="validationPass">Password</label>
+          <input type="password" class="form-control" 
+                [ngClass] ="{'is-invalid': pass.invalid && (pass.dirty || pass.touched)}"
+                id="validationPass" formControlName="pass" required>
+          <div *ngIf="pass.invalid && (pass.dirty || pass.touched)" class="invalid-feedback">
+            <div *ngIf="pass.errors.required">
+              password es requerido
+            </div>
+            <div *ngIf="pass.errors.minlength">
+              mínimo 6 caracteres
+            </div>
+          </div>
         </div>
         <div class="form-group">
           <label for="exampleInputName">Nombre</label>
           <input type="text" class="form-control" id="exampleInputName" formControlName="name">
         </div>
+        <div class="form-group">
+          <label for="exampleInputName">Memberships</label>
+          <select class="form-control" formControlName="memeberships">
+            <option *ngFor="let membership of memeberships" [value]="membership">{{membership}}</option>
+          </select>
+        </div>
+        <div class="form-group form-check">
+          <input type="checkbox" class="form-check-input" id="exampleCheck1" formControlName="newsletter">
+          <label class="form-check-label" for="exampleCheck1">Check me out</label>
+        </div>
+        {{registerForm.value.newsletter}}
         <button type="submit" class="btn btn-primary">Registrar</button>
       </form>
 </div>

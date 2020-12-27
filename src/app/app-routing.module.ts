@@ -7,6 +7,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 // import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
 import { HomeComponent } from './components/home/home.component';
+import { LoggedGuard } from './guards/logged.guard';
 
 
 const routes: Routes = [
@@ -17,7 +18,8 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent,
+    canActivate: [LoggedGuard] 
   },
   {
     path: 'LatestNews',
