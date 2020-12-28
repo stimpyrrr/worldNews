@@ -24,6 +24,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
 import { LoggedGuard } from './guards/logged.guard';
+import { PasswordValidationDirective } from './directives/password-validation.directive';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { LoggedGuard } from './guards/logged.guard';
     LoginComponent,
     RegisterComponent,
     FavouritesComponent,
-    HomeComponent    
+    HomeComponent,
+    PasswordValidationDirective,
+    FooterComponent    
   ],
   imports: [
     BrowserModule,

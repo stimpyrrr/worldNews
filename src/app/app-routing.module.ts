@@ -16,6 +16,11 @@ const routes: Routes = [
     pathMatch: 'full',
     redirectTo: 'home'
   },
+  /* {
+    path: '**',
+    pathMatch: 'full',
+    redirectTo: 'home'
+  }, */
   {
     path: 'home',
     component: HomeComponent,
@@ -35,7 +40,8 @@ const routes: Routes = [
   },
   {
     path: 'favourites',
-    component: FavouritesComponent
+    component: FavouritesComponent,
+    canActivate: [LoggedGuard] 
   },
   {
     path: 'technology',

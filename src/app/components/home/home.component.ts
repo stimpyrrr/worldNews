@@ -17,8 +17,8 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.loginService.currentUser().then(resp => {
       // console.log('user logged --> ', resp.uid);
+      this.firestoreService.getUser(resp.uid);
     });
-    this.firestoreService.getUser('yw4fyHmjbfSn8orYXLWfTKQmu6T2');
   }
   
 

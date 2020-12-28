@@ -28,6 +28,9 @@
             <div *ngIf="pass.errors.minlength">
               mínimo 6 caracteres
             </div>
+            <div *ngIf="pass.errors.passwordValidation">
+              {{pass.errors.passwordValidation.message}}
+            </div>
           </div>
         </div>
         <div class="form-group">
@@ -41,10 +44,29 @@
           </select>
         </div>
         <div class="form-group form-check">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1" formControlName="newsletter">
+          <input type="checkbox" class="form-check-input" formControlName="newsletter">
           <label class="form-check-label" for="exampleCheck1">Check me out</label>
         </div>
-        {{registerForm.value.newsletter}}
-        <button type="submit" class="btn btn-primary">Registrar</button>
+        <div class="form-group">
+          <a (click)="addPhone()" class="btn btn-primary">add Phone</a>
+        </div>
+        <div formArrayName="phones" *ngFor="let phone of phones.controls; let i = index">
+          <div [formGroupName]="i">
+            <div class="form-group row">
+              <label class="col-md-1" [attr.for]="'phone'+1">Phone</label>
+              <div class="col-md-12">
+                <input type="text" class="form-control" [attr.for]="'phone'+1" formControlName="phone">
+              </div>
+              <label class="col-md-1" [attr.for]="'description'+1">Description</label>
+              <div class="col-md-12">
+                <input type="text" class="form-control" [attr.for]="'description'+1" formControlName="description">
+              </div>
+              <div class="col-md-12">
+                <button class="btn btn-danger" (click)="removePhones(i)">Remove</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="submit" [disabled]="registerForm.invalid" class="btn btn-primary">Registrar</button>
       </form>
 </div>

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { RegisterService } from '../../services/firebase/register.service';
 import { FirestoreService } from '../../services/firebase/firestore.service';
 import { User } from 'src/app/interfaces/user';
+import { passwordValidation } from 'src/app/directives/password-validation.directive';
 
 @Component({
   selector: 'app-register',
@@ -13,15 +14,17 @@ export class RegisterComponent implements OnInit {
 
   get email() { return this.registerForm.get('email')};
   get pass() { return this.registerForm.get('pass')};
+  get phones() { return this.registerForm.get('phones') as FormArray}
 
   public memeberships: any[] = ['basic', 'medium', 'advanced'];
   
   public registerForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
-    pass: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    pass: new FormControl('', [Validators.required, Validators.minLength(6), passwordValidation()]),
     name: new FormControl(''),
     memeberships: new FormControl(this.memeberships[0]),
-    newsletter: new FormControl(false)
+    newsletter: new FormControl(false),
+    phones: new FormArray([])
   });
 
   constructor(
@@ -30,6 +33,18 @@ export class RegisterComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+  }
+
+  addPhone(){
+    const phoneGroup = new FormGroup({
+      phone: new FormControl(''),
+      description: new FormControl('')
+    });
+    this.phones.push(phoneGroup);
+  }
+
+  removePhones(index: number){
+    this.phones.removeAt(index);
   }
 
   register(){
