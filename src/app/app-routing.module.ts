@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CategoryNewsComponent } from './components/category-news/category-news.component';
-import { FavouritesComponent } from './components/favourites/favourites.component';
-import { LatestNewsComponent } from './components/latest-news/latest-news.component';
+import { FavouritesComponent } from './components/core/favourites/favourites.component';
+import { LatestNewsComponent } from './components/core/latest-news/latest-news.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 // import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
@@ -42,18 +41,6 @@ const routes: Routes = [
     path: 'favourites',
     component: FavouritesComponent,
     canActivate: [LoggedGuard] 
-  },
-  {
-    path: 'technology',
-    component: CategoryNewsComponent
-  },
-  {
-    path: 'programming',
-    component: CategoryNewsComponent
-  },
-  {
-    path: 'game',
-    component: CategoryNewsComponent
   }
 ];
 

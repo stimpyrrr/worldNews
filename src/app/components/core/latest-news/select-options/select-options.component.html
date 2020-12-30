@@ -1,0 +1,22 @@
+<div class="form-row">
+    <div class="col-md-4 mb-3">
+      <label for="validationCustom01">Categoría</label>
+      <select class="form-control" id="exampleFormControlSelect1">
+        <option>hola</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+      </select>
+    </div>
+    <div class="col-md-4 mb-3">
+      <label for="validationCustom02">Language</label>
+      <select class="form-control" id="exampleFormControlSelect1">
+        <option *ngFor="let lenguage of languages" [value]="lenguage.codigo">{{lenguage.pais}}</option>       
+      </select>
+    </div>    
+    <div class="col-md-4 mb-3">
+        <label for="validationCustom02">&nbsp;</label>
+       <button class="btn btn-primary form-control">Buscar</button>    
+    </div>
+</div>

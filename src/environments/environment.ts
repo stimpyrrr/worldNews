@@ -11,6 +11,11 @@ export const environment = {
     storageBucket: "world-news-2a49f.appspot.com",
     messagingSenderId: "465270794726",
     appId: "1:465270794726:web:bb715e7da7ce0c39fd0e27"
+  },
+  currentsApiConfig: {
+    apiKey: "KWX8Opk-9UmCqLjb_QPRrB5JkVdIPTPLkSiTpbLu3TWdPVQS",
+    apiLatestNews: "https://api.currentsapi.services/v1/latest-news",
+    apiLanguages: "https://api.currentsapi.services/v1/available/languages"
   }
 };
 
