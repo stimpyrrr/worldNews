@@ -6,9 +6,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class FilterCategoryPipe implements PipeTransform {
 
   transform(value: Array<any>, args: string): any[] {
-    console.log('pipe => ', value, args);
+    console.log('pipe => ', args);
     if(!value)return null;
     if(!args)return value;
+    // return value.filter(val => val.category.indexOf(args) !== -1);
     return value.filter(val => val.category.indexOf(args) !== -1);
   }
 

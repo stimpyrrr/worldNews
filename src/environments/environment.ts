@@ -15,7 +15,8 @@ export const environment = {
   currentsApiConfig: {
     apiKey: "KWX8Opk-9UmCqLjb_QPRrB5JkVdIPTPLkSiTpbLu3TWdPVQS",
     apiLatestNews: "https://api.currentsapi.services/v1/latest-news",
-    apiLanguages: "https://api.currentsapi.services/v1/available/languages"
+    apiLanguages: "https://api.currentsapi.services/v1/available/languages",
+    apiCategory: "https://api.currentsapi.services/v1/available/category"
   }
 };
 

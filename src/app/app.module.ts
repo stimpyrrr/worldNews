@@ -19,6 +19,7 @@ import { environment } from 'src/environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 /* FORMS */
+import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
 import { LoggedGuard } from './guards/logged.guard';
@@ -28,6 +29,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FilterCategoryPipe } from './pipes/filter-category.pipe';
 import { SelectOptionsComponent } from './components/core/latest-news/select-options/select-options.component';
+
 
 @NgModule({
   declarations: [
@@ -50,7 +52,8 @@ import { SelectOptionsComponent } from './components/core/latest-news/select-opt
     AngularFireModule.initializeApp(environment.firebaseConfig),
     ReactiveFormsModule,
     AngularFirestoreModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [LoggedGuard],
   bootstrap: [AppComponent]

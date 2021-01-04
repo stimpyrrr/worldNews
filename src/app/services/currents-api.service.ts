@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
+// import { Observable } from 'rxjs';
 import { LatestNews } from '../components/core/latest-news/interfaces/latest-news';
 import { Languages } from '../components/core/latest-news/select-options/interfaces/languages';
  
@@ -13,16 +13,18 @@ export class CurrentsApiService {
   
   readonly apiLatestNews: string = environment.currentsApiConfig.apiLatestNews;
   readonly apiLanguages: string = environment.currentsApiConfig.apiLanguages;
+  readonly apiCategory: string = environment.currentsApiConfig.apiCategory;
   readonly apiKey: string = environment.currentsApiConfig.apiKey;
 
   constructor(
     private http: HttpClient
   ) { }
 
-  getLatestNews(){
+  getLatestNews(lang: string){
     return this.http.get<LatestNews>(this.apiLatestNews, 
             {params:{
-              'apiKey': this.apiKey
+              'apiKey': this.apiKey,
+              'language': lang
             }})
   }
 
@@ -32,4 +34,5 @@ export class CurrentsApiService {
               'apiKey': this.apiKey
             }});
   }
+  
 }

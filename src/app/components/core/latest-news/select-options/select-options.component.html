@@ -1,22 +1,18 @@
-<div class="form-row">
+<div class="form-row">  
     <div class="col-md-4 mb-3">
       <label for="validationCustom01">Categoría</label>
-      <select class="form-control" id="exampleFormControlSelect1">
-        <option>hola</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
-      </select>
+      <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]="categorySelec">
+        <option *ngFor="let category of categories" [value]="category">{{category}}</option>       
+      </select>      
     </div>
     <div class="col-md-4 mb-3">
       <label for="validationCustom02">Language</label>
-      <select class="form-control" id="exampleFormControlSelect1">
+      <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]="languageSelec">
         <option *ngFor="let lenguage of languages" [value]="lenguage.codigo">{{lenguage.pais}}</option>       
       </select>
     </div>    
     <div class="col-md-4 mb-3">
         <label for="validationCustom02">&nbsp;</label>
-       <button class="btn btn-primary form-control">Buscar</button>    
+       <button class="btn btn-primary form-control" (click)="search()">Buscar</button>    
     </div>
 </div>

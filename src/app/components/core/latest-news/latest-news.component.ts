@@ -12,6 +12,7 @@ import { News } from './interfaces/latest-news';
 export class LatestNewsComponent implements OnInit {
   
   news: News[] = [];
+  categorySelec: string;
 
   constructor(
     private currentsApiService: CurrentsApiService
@@ -21,8 +22,13 @@ export class LatestNewsComponent implements OnInit {
     this.getLatestNews();
   }
 
-  getLatestNews(){
-    this.currentsApiService.getLatestNews().subscribe(
+  getLatestNews(params: any = ''){
+    let lang = '';
+    if (params != '') {
+      lang = params.lang;
+      this.categorySelec = params.cat;
+    }
+    this.currentsApiService.getLatestNews(lang).subscribe(
       (data: LatestNews) => {
         this.news = data.news;
         console.log('getLatestNews => ',this.news);
