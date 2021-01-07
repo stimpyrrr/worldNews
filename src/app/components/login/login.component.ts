@@ -11,6 +11,12 @@ import { LogoutService } from '../../services/logout.service';
 export class LoginComponent implements OnInit {
 
   logoutSub = new Subscription;
+  user: any = {};  
+  alert: any = {
+    message: '',
+    show: false,
+    type: ''
+  };
   
   public loginForm = new FormGroup({
     email: new FormControl(''),
@@ -27,6 +33,10 @@ export class LoginComponent implements OnInit {
       console.log("funciona el logout");
       this.logOut();
     });
+
+    this.LoginService.currentUser().then(resp => {
+      console.log('currentUser => ', resp);
+    });
   }
 
   ngOnDestroy(){
@@ -36,6 +46,15 @@ export class LoginComponent implements OnInit {
   onLogin(){
     this.LoginService.login(this.loginForm.value.email, this.loginForm.value.pass).then(resp => {
       console.log('resp then->', resp);
+      if (resp.code == 'auth/user-not-found') {
+        this.alert.type = 'error';
+        this.alert.message = resp.message;
+        this.alert.show = true;
+      }
+      else{
+        this.user = resp;
+        console.log('this.user => ', this.user);
+      }
     }).catch(error => {
       console.error('resp error->', error);
     });
@@ -48,5 +67,9 @@ export class LoginComponent implements OnInit {
     }).catch(error => {
       console.log('error logout ->', error);
     });
-  }  
+  }
+  
+  currentUser(){
+    
+  }
 }

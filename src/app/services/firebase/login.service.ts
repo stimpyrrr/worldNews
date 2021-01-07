@@ -5,7 +5,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService {
+export class LoginService {  
 
   constructor(
     private angularFireAuth: AngularFireAuth
@@ -14,10 +14,11 @@ export class LoginService {
   async login(email: string, password: string){
     try {
       const respoAuth = await this.angularFireAuth.auth.signInWithEmailAndPassword(email, password);
-      return respoAuth.user.uid;
-      // console.log('respoAuth-->', respoAuth);
+      console.log('respoAuth-->', respoAuth);
+      return respoAuth.user;
     } catch (error) {
       console.error('error auth ->',error);
+      return error;
     }
   }
 
