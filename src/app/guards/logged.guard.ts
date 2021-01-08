@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
-import { error } from 'protractor';
+// import { error } from 'protractor';
 import { Observable } from 'rxjs';
 import { LoginService } from '../services/firebase/login.service';
 
@@ -19,15 +19,20 @@ export class LoggedGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     this.loginService.currentUser().then(resp => {
-      if(resp.uid != null ){
-        this.logged = true;
+      console.log('guardsss => ', resp);
+      if(resp != null ){        
+        this.logged = true;        
       }
       else{
         window.alert('protected route');
+        /* this.loginService.logout().then(resp => {
+          this.logged = false;
+          this.router.navigate(['login']);
+        }); */
         this.logged = false;
-        this.router.navigate(['login']);
+        this.router.navigate(['login']);        
       }
-      return this.logged;
+      // return this.logged;
     }).catch(error => {
       console.log('error promise guard -> ', error);
       this.logged = false;

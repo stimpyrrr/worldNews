@@ -18,7 +18,7 @@ export class PasswordValidationDirective implements Validator{
 
   validate(control: import("@angular/forms").AbstractControl): import("@angular/forms").ValidationErrors {
     const password = <string>control.value;
-    console.log('password validation --> ', password);
+    // console.log('password validation --> ', password);
     if(!password) { return; }
     if(password === password.toLowerCase()){
       return{'passwordValidation': {'message': 'el password debe contener máyusculas'}} 

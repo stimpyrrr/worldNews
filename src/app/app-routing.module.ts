@@ -22,8 +22,7 @@ const routes: Routes = [
   }, */
   {
     path: 'home',
-    component: HomeComponent,
-    canActivate: [LoggedGuard] 
+    component: HomeComponent    
   },
   {
     path: 'LatestNews',
@@ -46,7 +45,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, {
-    useHash: true
+    useHash: false
   })],
   exports: [RouterModule]
 })
