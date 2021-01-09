@@ -1,1 +1,19 @@
-<p>favourites works!</p>
+<main role="main" class="container">
+    <div class="card-group row justify-content-center">
+        <div *ngFor="let new of news" class="text-center">
+            <div class="card" style="width: 18rem; margin:1rem;">                
+                <img *ngIf="new.image != 'None'" src="{{new.image}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <a class="card-title" href="{{new.url}}">{{new.title}}</a>
+                  <p class="card-text">{{new.description}}</p>
+                  <p class="card-text"><small class="text-muted">{{new.published}}</small></p>
+                  <div class="row">
+                      <div *ngFor="let category of new.category">
+                          <span class="badge badge-pill badge-warning">{{category}}</span>&nbsp;
+                      </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

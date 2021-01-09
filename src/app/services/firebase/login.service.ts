@@ -35,7 +35,7 @@ export class LoginService {
 
   async currentUser(){
     try {
-      const currentUser = this.angularFireAuth.auth.currentUser;
+      const currentUser =  this.angularFireAuth.auth.currentUser;
       return currentUser;
     } catch (error) {
       return error;

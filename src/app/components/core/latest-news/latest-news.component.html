@@ -3,6 +3,12 @@
     <div class="card-group row justify-content-center">
         <div *ngFor="let new of news | filterCategory:categorySelec" class="text-center">
             <div class="card" style="width: 18rem; margin:1rem;">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" [checked]="false"  (change)="saveToFavourites($event, new)">
+                    <label class="form-check-label" for="flexCheckDefault">
+                       Add to Favourites
+                    </label>
+                </div>
                 <img *ngIf="new.image != 'None'" src="{{new.image}}" class="card-img-top" alt="...">
                 <div class="card-body">
                   <a class="card-title" href="{{new.url}}">{{new.title}}</a>
