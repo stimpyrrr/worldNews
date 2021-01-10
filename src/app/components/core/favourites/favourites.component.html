@@ -1,7 +1,13 @@
 <main role="main" class="container">
     <div class="card-group row justify-content-center">
         <div *ngFor="let new of news" class="text-center">
-            <div class="card" style="width: 18rem; margin:1rem;">                
+            <div class="card" style="width: 18rem; margin:1rem;">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" [checked]="true" (change)="deleteFromFav(new)">
+                    <label class="form-check-label" for="flexCheckDefault">
+                       Delete from Favourites
+                    </label>
+                </div>                
                 <img *ngIf="new.image != 'None'" src="{{new.image}}" class="card-img-top" alt="...">
                 <div class="card-body">
                   <a class="card-title" href="{{new.url}}">{{new.title}}</a>

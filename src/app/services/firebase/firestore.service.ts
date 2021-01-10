@@ -32,12 +32,32 @@ export class FirestoreService {
           console.error(error);
         }
       })
-    });
-    
+    });    
+  }
+
+  deleteFavourites(docUser: string, docFav: string){
+    try {
+      const deleteFav = this.angularFirestore.firestore.collection('users').doc(docUser).collection('favourites').doc(docFav).delete();
+      return deleteFav;
+    } catch (error) {
+      console.error(error);
+      return error;
+    }   
+  }
+
+  getFavouriteDoc(docUser: string, idFav: string){
+    const FavouriteDoc = this.angularFirestore.firestore.collection('users').doc(docUser).collection('favourites').where('id', '==', idFav).get();
+    return FavouriteDoc;
   }
   
-  getFavourites(uid: string){
-    const favourites = this.angularFirestore.firestore.collection('users').where('uid', '==', uid).firestore.collectionGroup('favourites').get();
+  async getFavourites(doc: string){
+    // console.log('uid neron => ', uid);
+    // const favourites = this.angularFirestore.firestore.collection('users').where('uid', '==', uid).firestore.collectionGroup('favourites').get();
+    const favourites = await this.angularFirestore.firestore.collection('users').doc(doc).collection('favourites').get();/* .then(querySnapshot => {
+      querySnapshot.forEach(resp => {
+        console.log('data recovery from get -->', resp.data());
+      });
+    }); */
     return favourites;
   }
 

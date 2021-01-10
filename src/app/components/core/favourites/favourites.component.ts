@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { News } from '../latest-news/interfaces/latest-news';
+// import { News } from '../latest-news/interfaces/latest-news';
 import { FirestoreService } from '../../../services/firebase/firestore.service';
 import { LoginService } from '../../../services/firebase/login.service';
 @Component({
@@ -10,6 +10,7 @@ import { LoginService } from '../../../services/firebase/login.service';
 export class FavouritesComponent implements OnInit {
 
   news: any = [];
+  docUser: string;
 
   constructor(
     private firestoreService: FirestoreService,
@@ -17,17 +18,7 @@ export class FavouritesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
-    this.loginService.currentUser().then(resp => {
-      console.log('user logged --> ', resp);
-      if (resp != null) {
-        this.firestoreService.getFavourites(resp.uid).then(querySnapshot => {
-          querySnapshot.forEach(resp => {
-            this.news.push(resp.data());
-          })
-        });        
-      }
-    });
+    this.getFavourites();
     
     /* this.loginService.currentUser().then(resp => {
       console.log('user logged --> ', resp);
@@ -36,6 +27,37 @@ export class FavouritesComponent implements OnInit {
         console.log('getuser favourites => ', user);      
       }
     }); */
+  }
+
+  getFavourites(){
+    this.loginService.currentUser().then(resp => {
+      if (resp != null) {
+        this.firestoreService.getUser(resp.uid).then(querySnapshot => {
+          querySnapshot.forEach(resp2 => {
+            this.docUser = resp2.id;
+            this.firestoreService.getFavourites(resp2.id).then(querySnapshot => {
+              querySnapshot.forEach(resp3 => {
+                this.news.push(resp3.data());
+              })
+            });
+          });
+        });
+      }
+    });
+  }
+
+  deleteFromFav(newDel: any){    
+    // console.log('borrar de favorito', newDel.id, this.docUser);
+    this.firestoreService.getFavouriteDoc(this.docUser, newDel.id).then(querySnapshot => {
+      querySnapshot.forEach(resp => {
+        console.log(resp.id);
+        this.firestoreService.deleteFavourites(this.docUser, resp.id).then(respDel => {
+          console.log('respDel => ', respDel);
+          this.news = this.news.filter(newDelFilt => newDelFilt.id.trim() !==  newDel.id.trim());
+          // this.getFavourites();
+        });
+      });
+    });
   }
 
 }
