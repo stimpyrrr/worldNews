@@ -17,6 +17,7 @@ export class RegisterService {
       return respRegister.user;
     } catch (error) {
       console.error('register error -> ', error);
+      return error;
     }
   }
 }

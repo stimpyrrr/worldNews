@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { FavouritesComponent } from './components/core/favourites/favourites.component';
+// import { FavouritesComponent } from './components/core/favourites/favourites.component';
 import { LatestNewsComponent } from './components/core/latest-news/latest-news.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 // import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
 import { HomeComponent } from './components/home/home.component';
 import { LoggedGuard } from './guards/logged.guard';
-
+import { IsLoginGuard } from './guards/is-login.guard';
+import { LoggedLoginGuard } from  './guards/logged-login.guard';
+import { FavouritesModule } from './modules/favourites/favourites.module';
 
 const routes: Routes = [
   {
@@ -22,24 +24,29 @@ const routes: Routes = [
   }, */
   {
     path: 'home',
-    component: HomeComponent    
+    component: HomeComponent,
+    canActivate: [IsLoginGuard] 
   },
   {
-    path: 'LatestNews',
-    component: LatestNewsComponent
+    path: 'LatestNews',    
+    component: LatestNewsComponent,
+    canActivate: [IsLoginGuard]   
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    canActivate: [LoggedLoginGuard, IsLoginGuard]
   },
   {
     path: 'register',
-    component: RegisterComponent
+    component: RegisterComponent,
+    canActivate: [LoggedLoginGuard, IsLoginGuard]
   },
   {
     path: 'favourites',
-    component: FavouritesComponent,
-    canActivate: [LoggedGuard] 
+    loadChildren: () => import('./modules/favourites/favourites.module').then(m => m.FavouritesModule),
+    // component: FavouritesComponent,
+    canActivate: [LoggedGuard, IsLoginGuard] 
   }
 ];
 

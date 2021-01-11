@@ -11,6 +11,7 @@ export class FavouritesComponent implements OnInit {
 
   news: any = [];
   docUser: string;
+  loadingShow: boolean = false;  
 
   constructor(
     private firestoreService: FirestoreService,
@@ -27,18 +28,26 @@ export class FavouritesComponent implements OnInit {
         console.log('getuser favourites => ', user);      
       }
     }); */
-  }
+  } 
 
   getFavourites(){
+    this.loadingShow = true;
     this.loginService.currentUser().then(resp => {
       if (resp != null) {
         this.firestoreService.getUser(resp.uid).then(querySnapshot => {
           querySnapshot.forEach(resp2 => {
             this.docUser = resp2.id;
             this.firestoreService.getFavourites(resp2.id).then(querySnapshot => {
-              querySnapshot.forEach(resp3 => {
-                this.news.push(resp3.data());
-              })
+              console.log('que paso con querySnapshot => ', querySnapshot);
+              if (querySnapshot.empty) {
+                
+              }
+              else{
+                querySnapshot.forEach(resp3 => {
+                  this.news.push(resp3.data());
+                })                
+              }
+              this.loadingShow = false;
             });
           });
         });
@@ -46,7 +55,10 @@ export class FavouritesComponent implements OnInit {
     });
   }
 
-  deleteFromFav(newDel: any){    
+  deleteFromFav(newDel: any){
+    console.log('miedoo => ', newDel);
+    newDel.show = false;
+    this.loadingShow = true;    
     // console.log('borrar de favorito', newDel.id, this.docUser);
     this.firestoreService.getFavouriteDoc(this.docUser, newDel.id).then(querySnapshot => {
       querySnapshot.forEach(resp => {
@@ -54,6 +66,7 @@ export class FavouritesComponent implements OnInit {
         this.firestoreService.deleteFavourites(this.docUser, resp.id).then(respDel => {
           console.log('respDel => ', respDel);
           this.news = this.news.filter(newDelFilt => newDelFilt.id.trim() !==  newDel.id.trim());
+          this.loadingShow = false;          
           // this.getFavourites();
         });
       });

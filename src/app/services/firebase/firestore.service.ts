@@ -66,6 +66,8 @@ export class FirestoreService {
     return user;
   }
 
+  
+
   /* getUser(uid: string){
     this.angularFirestore.firestore.collection('users').where('uid', '==', uid).get().then(querySnapshot => {
       querySnapshot.forEach(resp => {

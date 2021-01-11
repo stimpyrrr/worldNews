@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-  isLogin = new Subscription;
+  // isLogin = new Subscription;
   logged: boolean = false;
   email: string;
 
@@ -25,27 +25,38 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.IsLoginService.isLogin$.subscribe(resp => {
-      console.log('IsLoginService', resp);
-      console.log('this.logged en el header => ', this.logged);
+      // console.log('IsLoginService', resp);
+      // console.log('this.logged en el header => ', this.logged);
       if(!this.logged){
         this.isLogged();
       }
-    });        
+    });
   }
 
-  logout(){
+  /* logout(){
     this.LogoutService.logout$.next();
     this.logged = false;
-    this.router.navigate(['login']);
+    this.router.navigate(['home']);
+  } */
+
+  logout(){
+    console.log('LOOOOOOOOOOGOOOUT');
+    this.LoginService.logout().then(resp => {      
+      this.logged = false;
+      this.router.navigate(['login']);
+    }).catch(error => {
+      console.log('error logout ->', error);
+    });
   }
 
   isLogged(){
-    console.log('this.logged => ', this.logged);
+    // console.log('this.logged => ', this.logged);
     this.LoginService.currentUser().then(resp => {
       console.log('currentUser => ', resp);
       if (resp != null) {
         this.email = resp.email;
         this.logged = true;
+        // this.router.navigate(['']);
       }      
     });
   }

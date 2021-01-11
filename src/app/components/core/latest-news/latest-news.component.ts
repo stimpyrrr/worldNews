@@ -15,7 +15,8 @@ export class LatestNewsComponent implements OnInit {
   
   news: News[] = [];
   categorySelec: string;
-  favourites: News[] = [];  
+  favourites: News[] = [];
+  loadingShow: boolean = false;  
 
   constructor(
     private currentsApiService: CurrentsApiService,
@@ -28,6 +29,7 @@ export class LatestNewsComponent implements OnInit {
   }
 
   getLatestNews(params: any = ''){
+    this.loadingShow = true;
     let lang = '';
     if (params != '') {
       lang = params.lang;
@@ -36,7 +38,58 @@ export class LatestNewsComponent implements OnInit {
     this.currentsApiService.getLatestNews(lang).subscribe(
       (data: LatestNews) => {
         this.news = data.news;
-        console.log('getLatestNews => ',this.news);
+        this.news.forEach(item => {
+          item.show = false;
+          item.iconFav = false;
+        });
+        this.loginService.currentUser().then(resp => {
+          console.log('que onda el current user => ', resp);
+          if (resp != null) {
+            // console.log('paso el nulll =>', this.news );
+            this.firestoreService.getUser(resp.uid).then(querySnapshot => {
+              querySnapshot.forEach(resp2 => {
+                this.firestoreService.getFavourites(resp2.id).then(querySnapshot => {
+                  if (querySnapshot.empty) {
+                    this.news.forEach(item => {
+                      item.show = true;
+                      item.iconFav = false;
+                    });
+                  }
+                  else{
+                    querySnapshot.forEach(resp3 => {
+                      
+                      this.news.filter( arr => {
+                        console.log(arr.id.trim() ,'===', resp3.data().id.trim());
+                        if (arr.id === resp3.data().id) {
+                            arr.show = false;
+                            arr.iconFav = true;
+                        }
+                        else{
+                          arr.show = true;
+                        }
+                      });
+                      console.log('aeeerssssssssssssss => ', resp3.data().id);
+                    })                
+                  }
+                  this.loadingShow = false;
+                });
+              });
+            });
+          }
+        });
+        /* this.news.forEach( item => {
+          item.checked = false;
+          
+          this.loginService.currentUser().then(resp => {
+            if (resp != null) {
+              item.show = true;
+            }
+            else{
+              item.show = false;
+            }
+          });          
+        }); */
+        this.loadingShow = false;        
       },
       (error: HttpErrorResponse) => {
         console.error(error.message);
@@ -44,15 +97,18 @@ export class LatestNewsComponent implements OnInit {
       () => {
         // console.log('getLatestNews => petición finalizada');
       }
-    );
+    );    
   }
 
   saveToFavourites(e: any, newSelec: any){
-    const addToFavourites = e.target.checked;
+    this.loadingShow = true;
+    // const addToFavourites = e.target.checked;
+    const addToFavourites = newSelec.checked;
     if (addToFavourites) {
       // this.favourites.push(newSelec);
       this.loginService.currentUser().then(user => {
         const respAddFavourites = this.firestoreService.addFavourites(user.uid, newSelec);
+        
         console.log('respAddFavourites => ', respAddFavourites);
       });
       // console.log('agregar a favoritos', newSelec);
@@ -60,7 +116,12 @@ export class LatestNewsComponent implements OnInit {
     else{
       console.log('eliminar de favoritos');
     }
-    console.log('salvado a favoritos => ', e.target.checked, newSelec);
+    setTimeout(()=>{
+      newSelec.show = false;
+      this.loadingShow = false;
+      newSelec.iconFav = true;
+    }, 1000);    
+    // console.log('salvado a favoritos => ', e.target.checked, newSelec);
   }
 
 }

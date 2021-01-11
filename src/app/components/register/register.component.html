@@ -37,20 +37,20 @@
           <label for="exampleInputName">Nombre</label>
           <input type="text" class="form-control" id="exampleInputName" formControlName="name">
         </div>
-        <div class="form-group">
+        <!-- <div class="form-group">
           <label for="exampleInputName">Memberships</label>
           <select class="form-control" formControlName="memeberships">
             <option *ngFor="let membership of memeberships" [value]="membership">{{membership}}</option>
           </select>
-        </div>
-        <div class="form-group form-check">
+        </div> -->
+        <!-- <div class="form-group form-check">
           <input type="checkbox" class="form-check-input" formControlName="newsletter">
           <label class="form-check-label" for="exampleCheck1">Check me out</label>
-        </div>
-        <div class="form-group">
+        </div> -->
+       <!--  <div class="form-group">
           <a (click)="addPhone()" class="btn btn-primary">add Phone</a>
-        </div>
-        <div formArrayName="phones" *ngFor="let phone of phones.controls; let i = index">
+        </div> -->
+       <!--  <div formArrayName="phones" *ngFor="let phone of phones.controls; let i = index">
           <div [formGroupName]="i">
             <div class="form-group row">
               <label class="col-md-1" [attr.for]="'phone'+1">Phone</label>
@@ -66,7 +66,10 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
         <button type="submit" [disabled]="registerForm.invalid" class="btn btn-primary">Registrar</button>
       </form>
+      <div *ngIf="alert.show" [ngClass]="{'alert-danger': alert.type == 'error', 'alert-success': alert.type == 'ok'}" class="alert mt-3" role="alert">
+        {{alert.message}}
+      </div>
 </div>

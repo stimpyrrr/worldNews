@@ -42,6 +42,6 @@
         <button type="submit" [disabled]="loginForm.invalid" class="btn btn-primary">Log In</button>
       </form>
       <div *ngIf="alert.show" [ngClass]="{'alert-danger': alert.type == 'error', 'alert-success': alert.type == 'ok'}" class="alert mt-3" role="alert">
-        {{alert.message}}
+        {{alert.message}}<a class="nav-link" (click)="goToRegister()">Register</a>
       </div>
 </div>

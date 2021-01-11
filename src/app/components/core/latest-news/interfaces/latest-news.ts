@@ -13,5 +13,8 @@ export interface News{
     image: string,
     language: string,
     category: string[],
-    published: string
+    published: string,
+    checked: boolean,
+    show: boolean,
+    iconFav: boolean
 }

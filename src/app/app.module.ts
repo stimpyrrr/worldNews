@@ -8,7 +8,7 @@ import { LatestNewsComponent } from './components/core/latest-news/latest-news.c
 
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { FavouritesComponent } from './components/core/favourites/favourites.component';
+// import { FavouritesComponent } from './components/core/favourites/favourites.component';
 
 /* FIREBASE */
 import { AngularFireModule } from '@angular/fire';
@@ -29,6 +29,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FilterCategoryPipe } from './pipes/filter-category.pipe';
 import { SelectOptionsComponent } from './components/core/latest-news/select-options/select-options.component';
+// import { FavouritesModule } from './modules/favourites/favourites.module';
 
 
 @NgModule({
@@ -38,7 +39,7 @@ import { SelectOptionsComponent } from './components/core/latest-news/select-opt
     LatestNewsComponent,
     LoginComponent,
     RegisterComponent,
-    FavouritesComponent,
+    // FavouritesComponent,
     HomeComponent,
     PasswordValidationDirective,
     FooterComponent,
@@ -54,6 +55,7 @@ import { SelectOptionsComponent } from './components/core/latest-news/select-opt
     AngularFirestoreModule,
     HttpClientModule,
     FormsModule
+    
   ],
   providers: [LoggedGuard],
   bootstrap: [AppComponent]

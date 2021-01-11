@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
   ) { 
   }
 
-  ngOnInit() {
+  ngOnInit() {    
     this.logoutSub = this.LogoutService.logout$.subscribe(resp => {
       console.log("funciona el logout");
       this.logOut();
@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
         this.user = resp;
         // this.location.replaceState('/');
         this.router.navigate(['']);
-        console.log('this.user => ', this.user);
+        // console.log('this.user => ', this.user);
       }
     }).catch(error => {
       console.error('resp error->', error);
@@ -72,11 +72,15 @@ export class LoginComponent implements OnInit {
   }
 
   logOut(){
-    this.LoginService.logout().then(resp => {
+    this.LoginService.logout().then(resp => {      
       console.log('logout ok ->', resp);
     }).catch(error => {
       console.log('error logout ->', error);
     });
-  }  
+  }
+  
+  goToRegister(){
+    this.router.navigate(['register']);
+  }
   
 }
